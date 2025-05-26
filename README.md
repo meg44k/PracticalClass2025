@@ -27,3 +27,5 @@
 質問は[issues](https://github.com/meg44k/PracticalClass2025/issues)に投げてもいいですし、自分に聞きまくって問題ないです:+1:どんどん聞いてほしいです!
 
 作ってほしいもの、やってほしいタスクは[issues](https://github.com/meg44k/PracticalClass2025/issues)に投げます。気が向いたときにやってもらえるとありがたいです :heart:
+
+## メンバー :curly_haired_man:
