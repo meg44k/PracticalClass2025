@@ -28,6 +28,11 @@
 
 作ってほしいもの、やってほしいタスクは[issues](https://github.com/meg44k/PracticalClass2025/issues)に投げます。気が向いたときにやってもらえるとありがたいです :heart:
 
+## Git / Githubについて :video_game:
+
+Gitについてやよく使うコマンドなどは[Git/Github](./DOCUMENTS/Git.md)にまとめてあります!
+困ったら見てみてください
+
 ## メンバー :curly_haired_man:
 
 ウラツカ　アツシ:デザイナー
