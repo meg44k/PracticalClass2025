@@ -29,3 +29,7 @@ Route::get('/settings', function () {
 Route::get('/battle', function () {
     return view('battle');
 });
+
+Route::get('/main', function () {
+    return view('main');
+});
