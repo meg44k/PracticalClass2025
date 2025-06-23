@@ -54,7 +54,7 @@
     <header class="header">
         <h1 class="site-title">楽市楽打</h1>
         <div class="auth-links">
-                <a href="main">ログイン</a>
+                <a href="login">ログイン</a>
                 <a href="register">アカウント登録</a>
         </div>
     </header>
