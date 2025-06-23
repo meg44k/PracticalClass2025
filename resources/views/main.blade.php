@@ -62,6 +62,12 @@
         .battle-menu {
             font-size: 80px;
         }
+        .back-menu {
+            position: absolute;
+            top: 5px;
+            left:5px;
+            font-size:25px;
+        }
         .auth-links a:hover {
             background-color:rgb(231, 136, 214);
         }
@@ -80,6 +86,9 @@
                 </a>
                 <a href="battle" class="custom-link battle-menu">
                     すたーと！！</a>
+                <a href="/" class="custom-link back-menu">
+                    <span class="icon">🔙</span>
+                </a>
         </div>
     </header>
 
