@@ -4,8 +4,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [LoginController::class, 'view']);
-
+Route::get('/', function () {
+    return view('title');
+});
 
 Route::get('/register', [RegisterController::class,'view']);
 
