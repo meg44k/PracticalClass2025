@@ -36,16 +36,27 @@
         }
         .auth-links a {
             display: block;
+            display: flex;
+            justify-content:center;
+            align-items: center;
+
             text-decoration: none;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
             color: #000000;
             background-color: #ffffff;
-            padding: 12px 20px;
             border-radius: 5px;
         }
         .auth-links a:hover {
             background-color: #28a745;
+        }
+        .header h1{
+            font-size: 5rem;
+        }
+        .detail {
+            width: 170px;
+            margin: 0 auto;
+            padding: 5px;
         }
     </style>
 </head>
@@ -54,8 +65,8 @@
     <header class="header">
         <h1 class="site-title">楽市楽打</h1>
         <div class="auth-links">
-                <a href="login">ログイン</a>
-                <a href="register">アカウント登録</a>
+                <a href="login" class="custom-link detail">ログイン</a>
+                <a href="register" class="custom-link detail">アカウント登録</a>
         </div>
     </header>
 
