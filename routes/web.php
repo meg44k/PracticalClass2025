@@ -1,18 +1,15 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegistorController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('title');
-});
+Route::get('/', [LoginController::class, 'view']);
 
-Route::get('/registor', function () {
-    return view('registor');
-});
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/registor', [RegistorController::class,'view']);
+
+Route::get('/login', [LoginController::class,'view']);
 
 Route::get('/result', function () {
     return view('result');
