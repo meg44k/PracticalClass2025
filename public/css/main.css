@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+body {
+    background-color:rgb(251, 170, 213);
+    font-family: sans-serif;
+    color: #333;
+
+    margin: 0;
+
+    display: flex;
+    justify-content:center;
+    align-items: center;
+
+    height: 100vh;
+}
+.site-title {
+    margin: 0; /* タイトルの下に余白 */
+    margin-bottom: 30px;
+    font-size: 40px;
+} 
+.auth-links {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.auth-links a {
+        
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
+    color:rgb(73, 65, 65);
+    padding: 3px 3px;
+    border-radius: 50px;
+}
+.mypage-icon {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    font-size: 25px;
+}
+.setting-icon {
+    position: absolute;
+    top: 2px;
+    right:60px;
+    font-size: 25px;
+}
+.battle-menu {
+    font-size: 80px;
+}
+.back-menu {
+    position: absolute;
+    top: 5px;
+    left:5px;
+    font-size:25px;
+}
+.auth-links a:hover {
+    background-color:rgb(231, 136, 214);
+}      
