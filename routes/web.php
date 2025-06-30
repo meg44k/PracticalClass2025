@@ -18,7 +18,6 @@ require __DIR__.'/auth.php';
 Route::get('/', function () {
     return view('title');
 });
-
 Route::get('/result', function () {
     return view('result');
 });
