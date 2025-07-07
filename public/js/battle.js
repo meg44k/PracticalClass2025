@@ -41,6 +41,9 @@ resetBtn.addEventListener('click', () => {
   timerInterval = null;
   remainingTime = initialTime; // 残り時間を初期値に戻す
   timerElement.textContent = formatTime(remainingTime);
+
+  currentIndex = 0;
+  typingArea.textContent = targetWord;
 });
 
 //初期状態更新
@@ -52,13 +55,21 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 ////////////////////////////////////////////////////////
 
+const targetWord = 'tesuto';
+let currentIndex = 0;
+
+typingArea.textContent = targetWord;
+
 window.addEventListener('keydown', (event) => {
 
-  const key = event.key;
+  if (event.key === targetWord[currentIndex]) {
 
-  if (key == 'Backspace') {
-    typingArea.textContent = typingArea.textContent.slice(0,-1);
-  } else if (key.length === 1) {
-    typingArea.textContent += key;
+    currentIndex++;
+
+    typingArea.textContent = targetWord.substring(currentIndex);
+
+    if (currentIndex === targetWord.length) {
+      window.location.href = '/result'
+    }
   }
 });
