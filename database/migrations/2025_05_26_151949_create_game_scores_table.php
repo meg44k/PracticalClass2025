@@ -12,20 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('game_scores', function (Blueprint $table) {
-            $table->id('game_score_id'); // BIGINT, PRIMARY KEY, AUTO_INCREMENT, NOT NULL
-            
-            $table->unsignedBigInteger('game_id'); // BIGINT, NOT NULL
-            $table->foreign('game_id')->references('game_id')->on('games')->onDelete('cascade'); // FOREIGN KEY REFERENCES Games(game_id)
-            
-            $table->unsignedBigInteger('user_id'); // BIGINT, NOT NULL
-            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade'); // FOREIGN KEY REFERENCES Users(user_id)
+            $table->id('game_id'); // BIGINT, PRIMARY KEY, AUTO_INCREMENT, NOT NULL
+            $table->string('id');
+
+            $table->foreign('id')->references('id')->on('users')->onDelete('cascade'); // FOREIGN KEY REFERENCES Users(user_id)
             
             $table->integer('score'); // INT, NOT NULL
-            $table->integer('rank_in_game'); // INT, NOT NULL
             $table->integer('type_count')->default(0); // INT, NOT NULL, DEFAULT 0
             $table->integer('missed_type_count')->default(0); // INT, NOT NULL, DEFAULT 0
+            $table->timestamp('played_at')->useCurrent(); // TIMESTAMP, NOT NULL, DEFAULT CURRENT_TIMESTAMP
             
-            $table->unique(['game_id', 'user_id']); // UNIQUE (game_id, user_id)
+            $table->unique(['game_id', 'id']); // UNIQUE (game_id, user_id)
         });
     }
 
