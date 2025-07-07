@@ -10,7 +10,7 @@ body {
 .battle-page {
     position: relative;
 
-    width: 600px;
+    width: 1200px;
     height:600px;
     border: 2px solid #f0b6c0; /* 画像に合わせた枠線 */
     border-radius: 20px;
