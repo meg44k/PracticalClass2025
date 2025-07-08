@@ -10,9 +10,8 @@
     
     <div id="timer">00:10</div>
 
-    <div class="buttons">
-        <button id="resetBtn">リセット</button>
-    </div>
+    <div id="miss-type">ミス数：0</div>
+
     <div class="words">
         <span id="type-words" class="words-rubi"></span>
         <span class="words-main">テスト</span>

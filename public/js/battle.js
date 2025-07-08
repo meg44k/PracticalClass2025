@@ -1,75 +1,65 @@
-// HTML要素を取得
-const timerElement = document.getElementById('timer');
-const resetBtn = document.getElementById('resetBtn');
-const typingArea = document.getElementById('type-words');
-// ----- 変更点：変数の準備 -----
-const initialTime = 0.18 * 60 * 1000; // 5分をミリ秒で設定
-let remainingTime = initialTime; // 残り時間
-let timerInterval;  // setIntervalのID
+window.addEventListener('DOMContentLoaded', () => {
 
-// ----- 変更点：時間を分:秒にフォーマットする関数 -----
-function formatTime(time) {
-  const minutes = Math.floor(time / (1000 * 60));
-  const seconds = Math.floor((time / 1000) % 60);
+  const timerElement = document.getElementById('timer');
+  const typingArea = document.getElementById('type-words');
+  const missCountElement = document.getElementById('miss-type');
 
-  // ゼロ埋め
-  const formattedMinutes = minutes.toString().padStart(2, '0');
-  const formattedSeconds = seconds.toString().padStart(2, '0');
+  // --- 変数 ---
+  const initialTime = 0.18 * 60 * 1000;
+  let remainingTime = initialTime;
+  let timerInterval;
 
-  return `${formattedMinutes}:${formattedSeconds}`;
-}
+  const targetWord = 'tesuto';
+  let currentIndex = 0;
+  let missCount = 0;
 
-function startCountdown() {
-  if (timerInterval) return;
-
-  timerInterval = setInterval(() => {
-    remainingTime -= 1000;
-    timerElement.textContent = formatTime(remainingTime);
-
-    if (remainingTime <= 0) {
-      clearInterval(timerInterval);
-      timerElement.textContent = "00:00";
-      alert("time up !!");
-    }
-  }, 1000);
-}
-
-
-// リセットボタンの処理
-resetBtn.addEventListener('click', () => {
-  clearInterval(timerInterval); // 時間の更新を停止
-  timerInterval = null;
-  remainingTime = initialTime; // 残り時間を初期値に戻す
-  timerElement.textContent = formatTime(remainingTime);
-
-  currentIndex = 0;
-  typingArea.textContent = targetWord;
-});
-
-//初期状態更新
-timerElement.textContent = formatTime(remainingTime);
-
-window.addEventListener('DOMContentLoaded', (event) => {
-  startCountdown();
-});
-
-////////////////////////////////////////////////////////
-
-const targetWord = 'tesuto';
-let currentIndex = 0;
-
-typingArea.textContent = targetWord;
-
-window.addEventListener('keydown', (event) => {
-
-  if (event.key === targetWord[currentIndex]) {
-
-    currentIndex++;
-
-    typingArea.textContent = targetWord.substring(currentIndex);
-
-    if (currentIndex === targetWord.length) {
-      window.location.href = '/result'
-    }
+  // --- 関数 ---
+  function formatTime(time) {
+    const minutes = Math.floor(time / (1000 * 60));
+    const seconds = Math.floor((time / 1000) % 60);
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+    const formattedSeconds = seconds.toString().padStart(2, '0');
+    return `${formattedMinutes}:${formattedSeconds}`;
   }
+
+  function startCountdown() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+      remainingTime -= 1000;
+      timerElement.textContent = formatTime(remainingTime);
+      if (remainingTime <= 0) {
+        clearInterval(timerInterval);
+        timerElement.textContent = "00:00";
+        window.location.href = '/result';
+      }
+    }, 1000);
+  }
+
+  function resetGame() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    remainingTime = initialTime;
+    timerElement.textContent = formatTime(remainingTime);
+    currentIndex = 0;
+    missCount = 0;
+    typingArea.textContent = targetWord;
+    missCountElement.textContent = `ミス数：${missCount}`;
+  }
+
+  window.addEventListener('keydown', (event) => {
+    if (currentIndex === targetWord.length || !timerInterval) {
+      return;
+    }
+    const key = event.key;
+    if (key === targetWord[currentIndex]) {
+      currentIndex++;
+      typingArea.textContent = targetWord.substring(currentIndex);
+    } else if (key.length === 1) {
+      missCount++;
+      missCountElement.textContent = `ミス数：${missCount}`;
+    }
+  });
+
+  resetGame();
+  startCountdown();
 });
