@@ -14,7 +14,7 @@
 
     <div class="words">
         <span id="type-words" class="words-rubi"></span>
-        <span class="words-main">テスト</span>
+        <span id="japanese-word" class="words-main"></span>
     </div>
 </div>
 

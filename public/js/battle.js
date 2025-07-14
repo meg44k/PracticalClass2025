@@ -5,11 +5,12 @@ window.addEventListener('DOMContentLoaded', () => {
   const missCountElement = document.getElementById('miss-type');
 
   // --- 変数 ---
-  const initialTime = 0.18 * 60 * 1000;
+  const initialTime = 30 * 1000;
   let remainingTime = initialTime;
   let timerInterval;
 
-  const targetWord = 'tesuto';
+  let targetWord;
+  let currentJapaneseWord;
   let currentIndex = 0;
   let missCount = 0;
 
@@ -35,15 +36,33 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 1000);
   }
 
+  function getRandomWord() {
+    return fetch('./words.json')
+      .then(response => response.json())
+      .then(data => {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        return data[randomIndex];
+      });
+  }
+
+  function setNextWord() {
+    getRandomWord().then(word => {
+      targetWord = word.romaji;
+      currentJapaneseWord = word.japanese;
+      typingArea.textContent = targetWord;
+      document.getElementById('japanese-word').textContent = currentJapaneseWord;
+      currentIndex = 0;
+    });
+  }
+
   function resetGame() {
     clearInterval(timerInterval);
     timerInterval = null;
     remainingTime = initialTime;
     timerElement.textContent = formatTime(remainingTime);
-    currentIndex = 0;
     missCount = 0;
-    typingArea.textContent = targetWord;
     missCountElement.textContent = `ミス数：${missCount}`;
+    setNextWord();
   }
 
   window.addEventListener('keydown', (event) => {
@@ -54,6 +73,9 @@ window.addEventListener('DOMContentLoaded', () => {
     if (key === targetWord[currentIndex]) {
       currentIndex++;
       typingArea.textContent = targetWord.substring(currentIndex);
+      if (currentIndex === targetWord.length) {
+        setNextWord();
+      }
     } else if (key.length === 1) {
       missCount++;
       missCountElement.textContent = `ミス数：${missCount}`;
