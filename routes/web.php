@@ -39,4 +39,4 @@ Route::get('/battle', function () {
 
 Route::get('/main', function () {
     return view('main');
-});
+})->middleware(['auth', 'verified'])->name('main');
