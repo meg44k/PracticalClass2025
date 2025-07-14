@@ -5,13 +5,15 @@ window.addEventListener('DOMContentLoaded', () => {
   const missCountElement = document.getElementById('miss-type');
 
   // --- 変数 ---
-  const initialTime = 0.18 * 60 * 1000;
+  const initialTime = 30 * 1000;
   let remainingTime = initialTime;
   let timerInterval;
 
-  const targetWord = 'tesuto';
+  let targetWord;
+  let currentJapaneseWord;
   let currentIndex = 0;
   let missCount = 0;
+  let typeCount = 0;
 
   // --- 関数 ---
   function formatTime(time) {
@@ -24,15 +26,35 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function startCountdown() {
     if (timerInterval) return;
-    timerInterval = setInterval(() => {
+    timerInterval = setInterval(async () => {
       remainingTime -= 1000;
       timerElement.textContent = formatTime(remainingTime);
       if (remainingTime <= 0) {
         clearInterval(timerInterval);
         timerElement.textContent = "00:00";
+        await saveGameResult();
         window.location.href = '/result';
       }
     }, 1000);
+  }
+
+  function getRandomWord() {
+    return fetch('./words.json')
+      .then(response => response.json())
+      .then(data => {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        return data[randomIndex];
+      });
+  }
+
+  function setNextWord() {
+    getRandomWord().then(word => {
+      targetWord = word.romaji;
+      currentJapaneseWord = word.japanese;
+      typingArea.textContent = targetWord;
+      document.getElementById('japanese-word').textContent = currentJapaneseWord;
+      currentIndex = 0;
+    });
   }
 
   function resetGame() {
@@ -40,10 +62,10 @@ window.addEventListener('DOMContentLoaded', () => {
     timerInterval = null;
     remainingTime = initialTime;
     timerElement.textContent = formatTime(remainingTime);
-    currentIndex = 0;
     missCount = 0;
-    typingArea.textContent = targetWord;
+    typeCount = 0;
     missCountElement.textContent = `ミス数：${missCount}`;
+    setNextWord();
   }
 
   window.addEventListener('keydown', (event) => {
@@ -53,12 +75,33 @@ window.addEventListener('DOMContentLoaded', () => {
     const key = event.key;
     if (key === targetWord[currentIndex]) {
       currentIndex++;
+      typeCount++;
       typingArea.textContent = targetWord.substring(currentIndex);
+      if (currentIndex === targetWord.length) {
+        setNextWord();
+      }
     } else if (key.length === 1) {
       missCount++;
       missCountElement.textContent = `ミス数：${missCount}`;
     }
   });
+
+  function saveGameResult() {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    return fetch('/api/game-result', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken
+      },
+      body: JSON.stringify({
+        score: 0, // スコアの計算方法が不明なため、一旦0で送信
+        type_count: typeCount,
+        missed_type_count: missCount
+      })
+    });
+  }
 
   resetGame();
   startCountdown();

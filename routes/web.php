@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GameController;
+
+Route::post('/api/game-result', [GameController::class, 'store']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -36,4 +39,4 @@ Route::get('/battle', function () {
 
 Route::get('/main', function () {
     return view('main');
-});
+})->middleware(['auth', 'verified'])->name('main');
