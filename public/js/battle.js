@@ -13,6 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let currentJapaneseWord;
   let currentIndex = 0;
   let missCount = 0;
+  let typeCount = 0;
 
   // --- 関数 ---
   function formatTime(time) {
@@ -25,12 +26,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function startCountdown() {
     if (timerInterval) return;
-    timerInterval = setInterval(() => {
+    timerInterval = setInterval(async () => {
       remainingTime -= 1000;
       timerElement.textContent = formatTime(remainingTime);
       if (remainingTime <= 0) {
         clearInterval(timerInterval);
         timerElement.textContent = "00:00";
+        await saveGameResult();
         window.location.href = '/result';
       }
     }, 1000);
@@ -61,6 +63,7 @@ window.addEventListener('DOMContentLoaded', () => {
     remainingTime = initialTime;
     timerElement.textContent = formatTime(remainingTime);
     missCount = 0;
+    typeCount = 0;
     missCountElement.textContent = `ミス数：${missCount}`;
     setNextWord();
   }
@@ -72,6 +75,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const key = event.key;
     if (key === targetWord[currentIndex]) {
       currentIndex++;
+      typeCount++;
       typingArea.textContent = targetWord.substring(currentIndex);
       if (currentIndex === targetWord.length) {
         setNextWord();
@@ -81,6 +85,23 @@ window.addEventListener('DOMContentLoaded', () => {
       missCountElement.textContent = `ミス数：${missCount}`;
     }
   });
+
+  function saveGameResult() {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    return fetch('/api/game-result', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken
+      },
+      body: JSON.stringify({
+        score: 0, // スコアの計算方法が不明なため、一旦0で送信
+        type_count: typeCount,
+        missed_type_count: missCount
+      })
+    });
+  }
 
   resetGame();
   startCountdown();
