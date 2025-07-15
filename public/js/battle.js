@@ -4,6 +4,9 @@ window.addEventListener('DOMContentLoaded', () => {
   const typingArea = document.getElementById('type-words');
   const missCountElement = document.getElementById('miss-type');
   const scoreElement = document.getElementById('score');
+  const comboElement = document.getElementById('combo');
+  const comboEffectElement = document.getElementById('combo-effect');
+  const missEffectElement = document.getElementById('miss-effect');
 
   // --- 変数 ---
   const initialTime = 30 * 1000;
@@ -45,7 +48,7 @@ window.addEventListener('DOMContentLoaded', () => {
     "nya": ["nya"], "nyu": ["nyu"], "nyo": ["nyo"],
     "hya": ["hya"], "hyu": ["hyu"], "hyo": ["hyo"],
     "mya": ["mya"], "myu": ["myu"], "myo": ["myo"],
-    "rya": ["rya"], "ryu": ["ryu"], "ryo": ["ryo"],
+    "rya": ["rya"], "ryu": ["ryu"], "rjo": ["rjo"],
     "gya": ["gya"], "gyu": ["gyu"], "gyo": ["gyo"],
     "ja": ["ja", "zya"], "ju": ["ju", "zyu"], "jo": ["jo", "zyo"],
     "bya": ["bya"], "byu": ["byu"], "byo": ["byo"],
@@ -133,21 +136,19 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateTypingArea() {
-    let displayedText = '';
-    // Show the typed part of the current segment
-    displayedText += typedBuffer;
+    let remainingText = '';
 
-    // Show the remaining part of the current segment
+    // Remaining part of the current segment
     if (currentIndex < targetWordSegments.length) {
       const currentSegment = targetWordSegments[currentIndex];
-      displayedText += currentSegment.substring(typedBuffer.length);
+      remainingText += currentSegment.substring(typedBuffer.length);
     }
 
-    // Show the rest of the word
+    // Rest of the word
     for (let i = currentIndex + 1; i < targetWordSegments.length; i++) {
-      displayedText += targetWordSegments[i];
+      remainingText += targetWordSegments[i];
     }
-    typingArea.innerHTML = `<span class="cursor">|</span>` + displayedText;
+    typingArea.innerHTML = `<span class="cursor">|</span>` + remainingText;
   }
 
   function resetGame() {
@@ -161,6 +162,7 @@ window.addEventListener('DOMContentLoaded', () => {
     combo = 0;
     missCountElement.textContent = `ミス数：${missCount}`;
     scoreElement.textContent = `スコア：${score}`;
+    comboElement.textContent = `コンボ：${combo}`;
     typedBuffer = ''; // Reset typed buffer
     setNextWord();
   }
@@ -200,6 +202,13 @@ window.addEventListener('DOMContentLoaded', () => {
         combo++;
         score += 1 * combo;
         scoreElement.textContent = `スコア：${score}`;
+        comboElement.textContent = `コンボ：${combo}`;
+
+        // Combo effect animation
+        comboEffectElement.classList.remove('combo-pop-animation');
+        void comboEffectElement.offsetWidth; // Trigger reflow
+        comboEffectElement.classList.add('combo-pop-animation');
+
         currentIndex++; // Move to next segment
         typeCount += matchedFormLength; // Increment typeCount by the length of the typed form
         typedBuffer = ''; // Reset buffer for next segment
@@ -223,6 +232,13 @@ window.addEventListener('DOMContentLoaded', () => {
           combo = 0;
           missCount++;
           missCountElement.textContent = `ミス数：${missCount}`;
+          comboElement.textContent = `コンボ：${combo}`;
+
+          // Miss effect animation
+          missEffectElement.classList.remove('miss-pop-animation');
+          void missEffectElement.offsetWidth; // Trigger reflow
+          missEffectElement.classList.add('miss-pop-animation');
+
           typedBuffer = ''; // Reset buffer on miss
           updateTypingArea(); // Update display to show original segment
         }
