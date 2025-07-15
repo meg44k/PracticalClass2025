@@ -47,6 +47,12 @@ body {
 .battle-menu {
     font-size: 80px;
 }
+
+.custom-font {
+    font-family: sans-serif;
+    font-weight: bold;
+    color:rgb(73, 65, 65);
+}
 .back-menu {
     position: absolute;
     top: 5px;
