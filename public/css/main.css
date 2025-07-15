@@ -46,6 +46,12 @@ body {
 }
 .battle-menu {
     font-size: 80px;
+    border: 2px solid gray; /* Add gray border */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+.battle-menu:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
 .custom-font {
