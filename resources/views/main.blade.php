@@ -13,7 +13,7 @@
                 <a href="mypage" class="custom-link mypage-icon">
                     <span class="icon">👤</span>
                 </a>
-                <a href="setting" class="custom-link setting-icon">
+                <a href="/profile" class="custom-link setting-icon">
                     <span class="icon">⚙</span>
                 </a>
                 <a href="battle" class="custom-link battle-menu">

@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 body {
-    background-color:rgb(251, 170, 213);
+    background-color:rgb(147,197,253);
     font-family: sans-serif;
     color: #333;
 
@@ -29,19 +29,19 @@ body {
     text-decoration: none;
     font-weight: bold;
     color:rgb(73, 65, 65);
-    padding: 3px 3px;
+    padding: 3px 50px;
     border-radius: 50px;
 }
 .mypage-icon {
     position: absolute;
     top: 2px;
-    right: 2px;
+    right: 100px;
     font-size: 25px;
 }
 .setting-icon {
     position: absolute;
     top: 2px;
-    right:60px;
+    right:200px;
     font-size: 25px;
 }
 .battle-menu {
@@ -54,5 +54,5 @@ body {
     font-size:25px;
 }
 .auth-links a:hover {
-    background-color:rgb(231, 136, 214);
+    background-color:rgb(219,234,254);
 }      
