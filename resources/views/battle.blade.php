@@ -29,7 +29,7 @@
 
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 text-center text-2xl">
         <span id="type-words" class="block text-4xl pb-2 border-b border-black mb-1 s"></span>
-        <span id="japanese-word" class="text-2xl text-gray-600"></span>
+        <span id="japanese-word" class="text-2xl text-gray-400"></span>
     </div>
 </div>
 
