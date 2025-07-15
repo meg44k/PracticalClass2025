@@ -1,0 +1,105 @@
+@charset "utf-8";
+
+:root {
+    --header-margin-top: 5vh;
+    --container-margin-top: 3vh;
+    --horizontal-gap: 3vw; /* 上下のボタン・四角間の水平方向の隙間を定義 */
+}
+
+body {
+    background-color: rgb(251, 170, 213);
+    font-family: sans-serif;
+    color: #333;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* overflow: hidden; */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin-top: var(--header-margin-top);
+    min-height: 10vh;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.result_finish,
+.result_ranking {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 3.5vw;
+    font-weight: bold;
+    color: #000000;
+    background-color: #ffffff;
+    border-radius: 5px;
+    /* ★★★ ここを調整 ★★★ */
+    /* padding: 2vw 1vw; */ /* 以前の提案 */
+    padding: 1.5vw 5vw; /* 例: paddingを調整して幅を下の四角と合わせる */
+    /* または、以下のcalc()で幅を厳密に制御 */
+    /* width: calc( (100% - var(--horizontal-gap)) / 2 ); */ /* これは維持 */
+
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    white-space: nowrap;
+    box-sizing: border-box;
+    width: calc( (100% - var(--horizontal-gap)) / 2 ); /* これは維持 */
+}
+
+.content-squares-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 80%;
+    margin-top: var(--container-margin-top);
+    flex-grow: 1;
+    box-sizing: border-box;
+}
+
+.white-square {
+    background-color: #ffffff;
+    width: calc( (100% - var(--horizontal-gap)) / 2 ); /* これは維持 */
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    /* ★★★ ここを調整 ★★★ */
+    padding: 2vw; /* 白い四角内部のパディング。これはコンテンツに合わせて調整 */
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1.5vh;
+    overflow-y: auto;
+}
+
+.white-square p {
+    margin: 0;
+    width: 90%;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5vh;
+    text-align: left;
+    font-size: 1.1em;
+    color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.back-menu {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 25px;
+    text-decoration: none;
+    color: inherit;
+    z-index: 10;
+}
