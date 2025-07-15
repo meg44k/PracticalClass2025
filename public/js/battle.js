@@ -3,6 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const timerElement = document.getElementById('timer');
   const typingArea = document.getElementById('type-words');
   const missCountElement = document.getElementById('miss-type');
+  const scoreElement = document.getElementById('score');
 
   // --- 変数 ---
   const initialTime = 30 * 1000;
@@ -14,6 +15,9 @@ window.addEventListener('DOMContentLoaded', () => {
   let currentIndex = 0;
   let missCount = 0;
   let typeCount = 0;
+  let score = 0;
+  let combo = 0;
+
 
   // --- 関数 ---
   function formatTime(time) {
@@ -64,7 +68,10 @@ window.addEventListener('DOMContentLoaded', () => {
     timerElement.textContent = formatTime(remainingTime);
     missCount = 0;
     typeCount = 0;
+    score = 0;
+    combo = 0;
     missCountElement.textContent = `ミス数：${missCount}`;
+    scoreElement.textContent = `スコア：${score}`;
     setNextWord();
   }
 
@@ -74,6 +81,9 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     const key = event.key;
     if (key === targetWord[currentIndex]) {
+      combo++;
+      score += 1 * combo;
+      scoreElement.textContent = `スコア：${score}`;
       currentIndex++;
       typeCount++;
       typingArea.textContent = targetWord.substring(currentIndex);
@@ -81,6 +91,7 @@ window.addEventListener('DOMContentLoaded', () => {
         setNextWord();
       }
     } else if (key.length === 1) {
+      combo = 0;
       missCount++;
       missCountElement.textContent = `ミス数：${missCount}`;
     }
@@ -96,7 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
         'X-CSRF-TOKEN': csrfToken
       },
       body: JSON.stringify({
-        score: 0, // スコアの計算方法が不明なため、一旦0で送信
+        score: score,
         type_count: typeCount,
         missed_type_count: missCount
       })
