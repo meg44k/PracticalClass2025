@@ -35,7 +35,7 @@ window.addEventListener('DOMContentLoaded', () => {
     "ma": ["ma"], "mi": ["mi"], "mu": ["mu"], "me": ["me"], "mo": ["mo"],
     "ya": ["ya"], "yu": ["yu"], "yo": ["yo"],
     "ra": ["ra"], "ri": ["ri"], "ru": ["ru"], "re": ["re"], "ro": ["ro"],
-    "wa": ["wa"], "wo": ["wo"], "n": ["n", "nn"], // 'n' can be 'n' or 'nn'
+    "wa": ["wa"], "wo": ["wo"], "n": ["n", "nn","xn"], // 'n' can be 'n' or 'nn'
     "ga": ["ga"], "gi": ["gi"], "gu": ["gu"], "ge": ["ge"], "go": ["go"],
     "za": ["za"], "ji": ["ji", "zi"], "zu": ["zu"], "ze": ["ze"], "zo": ["zo"],
     "da": ["da"], "dji": ["dji"], "dzu": ["dzu"], "de": ["de"], "do": ["do"],
