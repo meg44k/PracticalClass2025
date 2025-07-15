@@ -55,7 +55,7 @@ window.addEventListener('DOMContentLoaded', () => {
     getRandomWord().then(word => {
       targetWord = word.romaji;
       currentJapaneseWord = word.japanese;
-      typingArea.textContent = targetWord;
+      typingArea.innerHTML = `<span class="cursor">|</span>` + targetWord;
       document.getElementById('japanese-word').textContent = currentJapaneseWord;
       currentIndex = 0;
     });
@@ -86,7 +86,7 @@ window.addEventListener('DOMContentLoaded', () => {
       scoreElement.textContent = `スコア：${score}`;
       currentIndex++;
       typeCount++;
-      typingArea.textContent = targetWord.substring(currentIndex);
+      typingArea.innerHTML = `<span class="cursor">|</span>` + targetWord.substring(currentIndex);
       if (currentIndex === targetWord.length) {
         setNextWord();
       }
