@@ -25,9 +25,7 @@ Route::get('/result', function () {
     return view('result');
 });
 
-Route::get('/mypage', function () {
-    return view('mypage');
-});
+Route::get('/mypage', [GameController::class, 'showMypage'])->middleware('auth')->name('mypage');
 
 Route::get('/settings', function () {
     return view('settings');

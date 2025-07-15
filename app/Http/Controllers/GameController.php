@@ -23,4 +23,14 @@ class GameController extends Controller
 
         return response()->json(['message' => 'Game result saved successfully.']);
     }
+
+    public function showMypage()
+    {
+        $user = Auth::user();
+        $gameScores = GameScore::where('id', $user->id)
+                               ->orderByDesc('score')
+                               ->get();
+
+        return view('mypage', compact('gameScores'));
+    }
 }
